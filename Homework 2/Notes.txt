@@ -1,0 +1,18 @@
+1. Create 3 identical VM's from Image
+2. SSH into each VM via public IP or Azure Public DS
+3. Change hostnames to be unique
+4. Copy IP's from Azure Web Portal
+6. Edit "/etc/hosts" to include the following mappings.
+40.121.88.165	lab3vmfromcapture
+40.121.88.158	lab4round2
+40.121.88.98	lab3vmfromcapture2
+
+7. Reboot all VM's
+8. Can now jump between vm's by using private hostnames included in hostfile.
+
+9. Spin up Ubuntu VM
+10. SSH'd to it
+11. Installed open-jdk
+12. Installed Tomcat7
+13. Edited index.html page
+14. Restarted Tomcat server

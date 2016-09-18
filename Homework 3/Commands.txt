@@ -1,0 +1,43 @@
+# Step 1
+# Prep host directory
+mkdir profile
+cd profile
+touch info
+nano info
+
+# Step 2
+# Create Containers, mount profile, link together, keep running
+docker run -d --name="client" ubuntu tail -f /dev/null 
+docker run -d -v /home/ubuntu/profile:/home/ubuntu/profile -it --link client:client --name="server" ubuntu tail -f /dev/null 
+docker stop client
+docker rm client
+docker run -d -v /home/ubuntu/profile:/home/ubuntu/profile -it --link server:server --name="client" ubuntu tail -f /dev/null 
+
+# Connect to Server - Ping test client
+docker exec -it server bash
+ping client
+
+# Connect to Client - Ping test server
+docker exec -it client bash
+ping server
+
+# Step 3
+# Prepare DockerFile
+mkdir apache
+cd apache
+vim Dockerfile (Specify Enviorment)
+
+# Prepare Web Files to serve
+mkdir src
+vim src/index.php (Outline Hello World HTML)
+
+# Build Image
+docker build -t thiagomarini/apache-php .
+
+# Create Container
+docker run -p 80:80 thiagomarini/apache-php
+
+# View Public IP --> Hello World Page
+http://52.38.4.121/
+
+
